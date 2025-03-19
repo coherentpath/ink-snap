@@ -1,6 +1,6 @@
 # InkSnap
 
-`InkSnap` is a simple and leightweight snapshot testing library for Elixir
+`InkSnap` is a simple and lightweight snapshot testing library for Elixir
 
 ## Installation
 
