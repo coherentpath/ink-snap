@@ -10,7 +10,7 @@ in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:ink_snap, "~> 1.0.0", only: [:dev, :test]}
+    {:ink_snap, git: "https://github.com/coherentpath/ink_snap", tag: "v*.*.*", only: [:dev, :test]}
   ]
 end
 ```
