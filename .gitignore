@@ -30,3 +30,5 @@ ink_snap-*.tar
 
 # Dialyzer generated PLT files
 /dialyzer
+/priv/plts/*.plt
+/priv/plts/*.plt.hash

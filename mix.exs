@@ -1,8 +1,6 @@
 defmodule InkSnap.MixProject do
   use Mix.Project
 
-  # TODO(Gordon) - investigate MI/DV docs/package practices
-
   @version "1.0.0"
 
   ################################
@@ -22,8 +20,10 @@ defmodule InkSnap.MixProject do
       deps: deps(),
       description: description(),
       dialyzer: dialyzer(),
-      elixir: "~> 1.16",
+      docs: docs(),
+      elixir: "~> 1.18",
       name: "InkSnap",
+      package: package(),
       preferred_cli_env: preferred_cli_env(),
       start_permanent: Mix.env() == :prod,
       version: @version
@@ -66,6 +66,23 @@ defmodule InkSnap.MixProject do
       plt_local_path: "priv/plts/project.plt",
       plt_core_path: "priv/plts/core.plt",
       plt_add_apps: [:ex_unit, :mix]
+    ]
+  end
+
+  defp docs do
+    [
+      extras: ["README.md"],
+      main: "readme",
+      source_url: "https://github.com/coherentpath/ink-snap",
+      authors: ["Gordon Woolbert"]
+    ]
+  end
+
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README*"],
+      maintainers: ["Gordon Woolbert", "Nicholas Sweeting"],
+      links: %{"GitHub" => "https://github.com/coherentpath/ink-snap"}
     ]
   end
 
