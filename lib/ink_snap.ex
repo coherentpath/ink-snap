@@ -5,6 +5,8 @@ defmodule InkSnap do
   For more information, see [Usage](README.md#usage).
   """
 
+  require Record
+
   @dialyzer {:no_match, maybe_add_default_path: 1}
 
   @inspect_opts %Inspect.Opts{
@@ -13,9 +15,11 @@ defmodule InkSnap do
     pretty: true
   }
 
-  @snapshot_directory Application.compile_env(:ink_snap, :snapshot_directory, "_snapshots")
+  @default_snapshot_directory "_snapshots"
   @snapshot_test_tag Application.compile_env(:ink_snap, :snapshot_test_tag, :snapshot)
-  @test_paths Keyword.get(Mix.Project.config(), :test_paths, [])
+
+  # Define a private record for Application test config
+  Record.defrecordp(:app_test_config, test_paths: [], snapshot_directory: "")
 
   ################################
   # Public API
@@ -94,10 +98,11 @@ defmodule InkSnap do
   ################################
 
   defp snapshot_file!(file, function) do
+    config = get_app_test_config(Mix.Project.get!())
     basename = snapshot_file_basename(function)
-    test_paths = test_paths()
 
-    test_paths
+    config
+    |> app_test_config(:test_paths)
     |> Enum.find(&String.starts_with?(file, &1))
     |> case do
       path when is_binary(path) ->
@@ -106,7 +111,8 @@ defmodule InkSnap do
           |> Path.rootname()
           |> String.trim_leading(path)
 
-        Path.join([path, @snapshot_directory, sub_path, basename])
+        snapshot_directory = app_test_config(config, :snapshot_directory)
+        Path.join([path, snapshot_directory, sub_path, basename])
 
       _ ->
         raise RuntimeError, """
@@ -124,19 +130,27 @@ defmodule InkSnap do
     |> Kernel.<>(".snap")
   end
 
-  defp test_paths do
-    :persistent_term.get({__MODULE__, :test_paths})
+  defp get_app_test_config(app) do
+    :persistent_term.get({__MODULE__, app, :app_test_config})
   rescue
     ArgumentError ->
-      paths =
-        @test_paths
-        |> maybe_add_default_path()
-        |> Enum.map(&Path.expand/1)
-        |> Enum.sort()
-        |> Enum.reduce([], &maybe_add_test_path/2)
+      config =
+        app_test_config(
+          test_paths: test_paths(),
+          snapshot_directory: snapshot_directory()
+        )
 
-      :persistent_term.put({__MODULE__, :test_paths}, paths)
-      paths
+      :persistent_term.put({__MODULE__, app, :app_test_config}, config)
+      config
+  end
+
+  defp test_paths do
+    Mix.Project.config()
+    |> Keyword.get(:test_paths, [])
+    |> maybe_add_default_path()
+    |> Enum.map(&Path.expand/1)
+    |> Enum.sort()
+    |> Enum.reduce([], &maybe_add_test_path/2)
   end
 
   defp maybe_add_default_path([]) do
@@ -157,6 +171,14 @@ defmodule InkSnap do
     else
       [path | paths]
     end
+  end
+
+  defp snapshot_directory do
+    Application.get_env(
+      :ink_snap,
+      :snapshot_directory,
+      @default_snapshot_directory
+    )
   end
 
   defp create_snapshot!(file, value) do
