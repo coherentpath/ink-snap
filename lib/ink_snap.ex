@@ -16,7 +16,7 @@ defmodule InkSnap do
   }
 
   @default_snapshot_directory "_snapshots"
-  @snapshot_test_tag Application.compile_env(:exposure, :snapshot_test_tag, :snapshot)
+  @snapshot_test_tag Application.compile_env(:ink_snap, :snapshot_test_tag, :snapshot)
 
   # Define a private record for Application test config
   Record.defrecordp(:app_test_config, test_paths: [], snapshot_directory: "")
@@ -32,7 +32,7 @@ defmodule InkSnap do
     snapshot_file = snapshot_file!(env.file, function_name)
 
     cond do
-      System.get_env("EXPOSURE_OVERRIDE") == "true" ->
+      System.get_env("SNAPSHOT_UPDATE") == "true" ->
         create_snapshot!(snapshot_file, value)
 
       File.exists?(snapshot_file) ->
@@ -175,7 +175,7 @@ defmodule InkSnap do
 
   defp snapshot_directory do
     Application.get_env(
-      :exposure,
+      :ink_snap,
       :snapshot_directory,
       @default_snapshot_directory
     )
