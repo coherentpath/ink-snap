@@ -45,13 +45,15 @@ defmodule InkSnapTest do
     end
 
     test "will raise an error if test doesn't have a snapshot", ctx do
-      message = "No snapshot for test: \"#{ctx.test}\"."
-
       refute System.get_env("SNAPSHOT_UPDATE", "false") == "true"
 
-      assert_raise RuntimeError, message, fn ->
-        handle_snapshot!("correct value", __ENV__)
-      end
+      error =
+        assert_raise RuntimeError, fn ->
+          handle_snapshot!("correct value", __ENV__)
+        end
+
+      assert error.message =~ "No snapshot found for test: \"#{ctx.test}\""
+      assert error.message =~ "SNAPSHOT_UPDATE=true mix test"
     end
   end
 end
