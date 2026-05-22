@@ -39,7 +39,13 @@ defmodule InkSnap do
         compare_snapshot!(snapshot_file, value)
 
       true ->
-        raise RuntimeError, "No snapshot for test: \"#{function_name}\"."
+        raise RuntimeError, """
+        No snapshot found for test: "#{function_name}".
+
+        Run the following to create it:
+
+            SNAPSHOT_UPDATE=true mix test
+        """
     end
   end
 
@@ -205,7 +211,13 @@ defmodule InkSnap do
       raise ExUnit.AssertionError,
         left: value,
         right: snapshot,
-        message: "Value does not match snapshot: #{file}",
+        message: """
+        Value does not match snapshot: #{file}
+
+        If this change is intentional, run the following to update it:
+
+            SNAPSHOT_UPDATE=true mix test
+        """,
         expr: "value == snapshot"
     end
   end
