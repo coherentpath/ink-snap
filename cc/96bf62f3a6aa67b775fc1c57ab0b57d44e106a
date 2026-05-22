@@ -1,0 +1,22 @@
+lib/ink_snap.ex
+  s_137b001c6b9283::t_de4899807d3a65 214-220
+  s_137b001c6b9283::t_4b5e4e458c9fba 42-48
+test/ink_snap_test.exs
+  s_137b001c6b9283::t_4d24230f12a53a 50-56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "cc96bf62f3a6aa67b775fc1c57ab0b57d44e106a",
+  "prompts": {},
+  "sessions": {
+    "s_137b001c6b9283": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1aec8387dffenBzy30754JiHoD",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "nsweeting <nsweeting@gmail.com>"
+    }
+  }
+}
