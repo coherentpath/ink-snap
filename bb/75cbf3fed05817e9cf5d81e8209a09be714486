@@ -1,0 +1,14 @@
+mix.exs
+  h_2021376deb568c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "bb75cbf3fed05817e9cf5d81e8209a09be714486",
+  "prompts": {},
+  "humans": {
+    "h_2021376deb568c": {
+      "author": "nsweeting <nsweeting@gmail.com>"
+    }
+  }
+}
