@@ -111,10 +111,10 @@ mix ink_snap.check
 
 It lists any snapshot file on disk that no test would produce and exits with a
 non-zero status when orphans are found, making it suitable as a CI gate. To delete
-the orphaned files (and prune any snapshot directories left empty), pass `--clean`:
+the orphaned files (and prune any snapshot directories left empty), pass `--delete`:
 
 ```bash
-mix ink_snap.check --clean
+mix ink_snap.check --delete
 ```
 
 The task compiles the project's test files to ask ExUnit for every registered

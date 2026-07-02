@@ -24,27 +24,27 @@ defmodule Mix.Tasks.InkSnap.CheckTest do
       assert status == 1
       assert out =~ "Found 1 unused snapshot(s)"
       assert out =~ "test_orphan_snapshot_from_test.snap"
-      assert File.exists?(@orphan), "should not delete without --clean"
+      assert File.exists?(@orphan), "should not delete without --delete"
     end
 
-    test "--clean deletes orphans and exits 0" do
+    test "--delete deletes orphans and exits 0" do
       File.write!(@orphan, "%{}\n")
 
-      {out, status} = run(["--clean"])
+      {out, status} = run(["--delete"])
 
       assert status == 0
       assert out =~ "Removed 1 unused snapshot(s)"
       refute File.exists?(@orphan)
     end
 
-    test "--clean prunes directories left empty" do
+    test "--delete prunes directories left empty" do
       dir = "test/_snapshots/nonexistent_test"
       snap = Path.join(dir, "test_gone.snap")
       File.mkdir_p!(dir)
       File.write!(snap, "%{}\n")
       on_exit(fn -> File.rm_rf(dir) end)
 
-      {_out, status} = run(["--clean"])
+      {_out, status} = run(["--delete"])
 
       assert status == 0
       refute File.exists?(snap)

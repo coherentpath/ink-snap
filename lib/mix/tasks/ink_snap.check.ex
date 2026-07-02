@@ -17,7 +17,7 @@ defmodule Mix.Tasks.InkSnap.Check do
   Prints each orphaned snapshot and exits with a non-zero status when any are
   found (suitable for CI).
 
-      mix ink_snap.check --clean
+      mix ink_snap.check --delete
 
   Deletes orphaned snapshots, prunes any snapshot directories left empty, and
   exits successfully.
@@ -50,18 +50,14 @@ defmodule Mix.Tasks.InkSnap.Check do
   end
 
   defp check(args) do
-    {opts, _, _} = OptionParser.parse(args, strict: [clean: :boolean])
-    clean? = Keyword.get(opts, :clean, false)
+    {opts, _, _} = OptionParser.parse(args, strict: [delete: :boolean])
+    delete? = Keyword.get(opts, :delete, false)
 
     Mix.Task.run("compile")
     Application.ensure_all_started(:ink_snap)
     # Start ExUnit so compiling test modules can register their tests, but never
-    # let it run them (this is a static dry run, not a test execution). Starting
-    # with autorun disabled first makes any ExUnit.start/0 in test_helper.exs a
-    # no-op for autorun, so the helper can still set up compile-time deps (Mox,
-    # etc.) that case templates reference.
+    # let them run (this is a static dry run, not a test execution).
     ExUnit.start(autorun: false)
-    load_test_helper()
 
     expected = expected_snapshots()
     existing = existing_snapshots()
@@ -71,7 +67,7 @@ defmodule Mix.Tasks.InkSnap.Check do
       orphans == [] ->
         Mix.shell().info("No unused snapshots found.")
 
-      clean? ->
+      delete? ->
         Enum.each(orphans, &File.rm!/1)
         prune_empty_dirs()
 
@@ -86,7 +82,7 @@ defmodule Mix.Tasks.InkSnap.Check do
 
         Remove them by running:
 
-            mix ink_snap.check --clean
+            mix ink_snap.check --delete
         """)
 
         exit({:shutdown, 1})
@@ -122,17 +118,6 @@ defmodule Mix.Tasks.InkSnap.Check do
 
   defp default_test_paths do
     if File.dir?("test"), do: ["test"], else: []
-  end
-
-  # Load the project's test helper so case templates can reference compile-time
-  # setup (Mox mocks, config, etc.). autorun was already disabled above, so the
-  # helper's own ExUnit.start/0 will not schedule a test run.
-  defp load_test_helper do
-    helper = Path.expand("test/test_helper.exs")
-
-    if File.exists?(helper) do
-      Code.require_file(helper)
-    end
   end
 
   # Remove snapshot subdirectories that became empty after deletion, bottom-up.
