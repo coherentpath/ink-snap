@@ -1,0 +1,27 @@
+lib/mix/tasks/ink_snap.check.ex
+  s_52d859e57ff7fa::t_9ab28350be6f36 59
+  s_52d859e57ff7fa::t_7896c758cc73d1 85
+  s_52d859e57ff7fa::t_fd9cd2b0824b2c 20
+  s_52d859e57ff7fa::t_17352f75a32f71 70
+  s_52d859e57ff7fa::t_5893bfa718a2c5 53-54
+README.md
+  s_52d859e57ff7fa::t_f917629f615fbf 114,117
+test/mix/tasks/ink_snap.check_test.exs
+  s_52d859e57ff7fa::t_38f15126d43f5e 27,30,33,40,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "e6f6916aeb956b03bf113b68ff67fd5c689c7dec",
+  "prompts": {},
+  "sessions": {
+    "s_52d859e57ff7fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dccafc47ffeu6lWX6Vl3g9QZ2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
