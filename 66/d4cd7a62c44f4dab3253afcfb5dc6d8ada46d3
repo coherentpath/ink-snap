@@ -1,0 +1,19 @@
+.tool-versions
+  s_15217ad2ff2f4c::t_3d836e623befdc 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "66d4cd7a62c44f4dab3253afcfb5dc6d8ada46d3",
+  "prompts": {},
+  "sessions": {
+    "s_15217ad2ff2f4c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbf24de2ffez1uKN4CwQiLfnA",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
