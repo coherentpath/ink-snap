@@ -92,7 +92,7 @@ defmodule Mix.Tasks.InkSnap.Check do
   # Compute the set of snapshot paths that live tests would produce.
   defp expected_snapshots do
     test_files()
-    |> Enum.flat_map(&Code.require_file/1)
+    |> Enum.flat_map(fn file -> Code.require_file(file) || Code.compile_file(file) end)
     |> Enum.map(fn {module, _binary} -> module end)
     |> Enum.filter(&function_exported?(&1, :__ex_unit__, 0))
     |> Enum.flat_map(fn module -> module.__ex_unit__().tests end)
