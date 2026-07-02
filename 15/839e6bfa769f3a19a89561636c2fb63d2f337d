@@ -1,0 +1,32 @@
+lib/ink_snap.ex
+  s_52d859e57ff7fa::t_a00ca0f30d96ab 102-112
+lib/mix/tasks/ink_snap.check.ex
+  s_52d859e57ff7fa::t_c0906f99be786a 30-52,56
+  s_52d859e57ff7fa::t_41a9991c54e361 58
+  s_52d859e57ff7fa::t_8449942ab32677 59-62,64
+  s_52d859e57ff7fa::t_a3f58ec1685b5d 141
+  s_52d859e57ff7fa::t_acd52aa5665543 127-137
+  s_52d859e57ff7fa::t_09dd48217ffe53 1-29,53-55,57,63,65-126,138-140,142-147
+README.md
+  s_52d859e57ff7fa::t_17848b00540831 102-123
+mix.exs
+  s_52d859e57ff7fa::t_89db8058b816f6 44
+test/mix/tasks/ink_snap.check_test.exs
+  s_52d859e57ff7fa::t_c0515ace467809 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "15839e6bfa769f3a19a89561636c2fb63d2f337d",
+  "prompts": {},
+  "sessions": {
+    "s_52d859e57ff7fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dccafc47ffeu6lWX6Vl3g9QZ2",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
