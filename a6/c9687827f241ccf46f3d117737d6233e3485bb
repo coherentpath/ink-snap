@@ -1,0 +1,19 @@
+lib/mix/tasks/ink_snap.check.ex
+  s_15217ad2ff2f4c::t_91c0396d9c42a1 95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "a6c9687827f241ccf46f3d117737d6233e3485bb",
+  "prompts": {},
+  "sessions": {
+    "s_15217ad2ff2f4c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbf24de2ffez1uKN4CwQiLfnA",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
