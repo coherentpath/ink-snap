@@ -99,6 +99,28 @@ way as a normal test:
 mix test test/sample_test.exs:12
 ```
 
+### Detecting Unused Snapshots
+
+Renaming or removing a snapshot test (and regenerating with `SNAPSHOT_UPDATE=true`)
+leaves the old snapshot file behind. Use the `ink_snap.check` task to detect these
+stale/orphaned snapshots:
+
+```bash
+mix ink_snap.check
+```
+
+It lists any snapshot file on disk that no test would produce and exits with a
+non-zero status when orphans are found, making it suitable as a CI gate. To delete
+the orphaned files (and prune any snapshot directories left empty), pass `--clean`:
+
+```bash
+mix ink_snap.check --clean
+```
+
+The task compiles the project's test files to ask ExUnit for every registered
+test, but it does **not** run any tests. It always runs in the `test` environment
+(re-invoking itself if necessary), since that is where snapshots live.
+
 ### Configuration
 
 `InkSnap` has a few few configuration options that can be set in the

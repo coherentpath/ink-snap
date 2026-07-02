@@ -41,6 +41,7 @@ defmodule InkSnap.MixProject do
         "format --check-formatted",
         "credo --strict",
         "test --cover --export-coverage default",
+        "ink_snap.check",
         "dialyzer --format github"
       ]
     ]
