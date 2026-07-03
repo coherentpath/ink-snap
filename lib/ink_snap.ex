@@ -99,6 +99,17 @@ defmodule InkSnap do
     end
   end
 
+  @doc false
+  @spec snapshot_file_for(binary(), atom()) :: binary()
+  def snapshot_file_for(file, function), do: snapshot_file!(file, function)
+
+  @doc false
+  @spec snapshot_dirs() :: [binary()]
+  def snapshot_dirs do
+    dir = snapshot_directory()
+    Enum.map(test_paths(), &Path.join(&1, dir))
+  end
+
   ################################
   # Private API
   ################################

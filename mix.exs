@@ -1,7 +1,7 @@
 defmodule InkSnap.MixProject do
   use Mix.Project
 
-  @version "1.1.0"
+  @version "1.1.1"
 
   ################################
   # Public API
@@ -41,6 +41,7 @@ defmodule InkSnap.MixProject do
         "format --check-formatted",
         "credo --strict",
         "test --cover --export-coverage default",
+        "ink_snap.check",
         "dialyzer --format github"
       ]
     ]
